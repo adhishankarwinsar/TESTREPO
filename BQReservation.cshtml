@@ -1,0 +1,316 @@
+﻿@{
+    ViewBag.Title = "BQReservation";
+    Layout = "~/Views/Shared/_BQComLayout.cshtml";
+}
+<script src="~/Scripts/BQScripts/JSBQCommon/BQCommon.js"></script>
+<script src="~/Scripts/BQScripts/JSBQTrans/BQReservation.js?v=230825"></script>
+<script src="~/Scripts/BQScripts/JSBQTrans/BQTrasnFunc1.js"></script>
+
+<script src="~/Scripts/BQScripts/JSBQTrans/PopUpGuestProfile.js"></script>
+<link href="~/SideMenuv1.0/BQCSS/BQReservation.css" rel="stylesheet" />
+
+
+@*Guest Creation Commonly Added by Sundara Balaji A S --Ref By Suthaker*@
+
+<script src="~/FO/javascript/FoNewGstCreate.js"></script>
+<script src="~/FO/javascript/FoGuestProfPop.js"></script>
+<link href="~/FO/CSS/GuestProfPop.css" rel="stylesheet" />
+
+<input type="hidden" id="hdnCompId" />
+<input type="hidden" id="hdnUserId" />
+<input type="hidden" id="hdnConnStr" />
+
+<input type="hidden" id="hdnGridClickCol" />
+<input type="hidden" id="hdnCurrentDt" />
+<input type="hidden" id="hdnCurMode" />
+<input type="hidden" id="hdnGstId" />
+<input type="hidden" id="hdnOldStatus" />
+<input type="hidden" id="hdnGstNmInd" />
+<input type="hidden" id="hdnODLocId" />
+<input type="hidden" id="cmbTitleTag" />
+
+<input type="hidden" id="hdnSpAppl" />
+<input type="hidden" id="hdnChAppl" />
+<input type="hidden" id="hdnBkrAppl" />
+<input type="hidden" id="hdnDeptAidsCol" />
+<input type="hidden" id="hdnLoudMusAppl" />
+<input type="hidden" id="hdnStageAppl" />
+<input type="hidden" id="hdnBrshiftAppl" />
+<input type="hidden" id="hdnbsman" />
+<input type="hidden" id="hdnspman" />
+<input type="hidden" id="hdnFornCurAppl" />
+<input type="hidden" id="hdnBaseCurId" />
+<input type="hidden" id="hdnComisnAppl" />
+<input type="hidden" id="hdnH4_Ind" />
+
+
+<input type="hidden" id="hdnTaxIncAppl" />
+<input type="hidden" id="hdnTaxInclusiveAppl" />
+<input type="hidden" id="hdnMultiPln" />
+<input type="hidden" id="hdnFoodPrep" />
+
+<input type="hidden" id="hdnPlnItem" />
+<input type="hidden" id="hdnPlnAvail" />
+<input type="hidden" id="hdnMgrpAppl" />
+
+<input type="hidden" id="hdnBlkSrchTag" />
+<input type="hidden" id="hdnSaveTag" />
+
+<input type="hidden" id="hdnCountryId" />
+<input type="hidden" id="hdnCountryNm" />
+
+<input type="hidden" id="hdnBookerId" />
+<input type="hidden" id="hdnBookerNM" />
+
+<input type="hidden" id="hdnGPpopInd" />
+<input type="hidden" id="hdnGrdMOthColNM" />
+<input type="hidden" id="hdnMAdd" />
+<input type="hidden" id="hdnA3Ind" />
+<input type="hidden" id="hdnL3Ind" />
+<input type="hidden" id="hdnG4Ind" />
+
+<input type="hidden" id="hdnInGstInd" />
+<input type="hidden" id="hdnKTaxInd" />
+<input type="hidden" id="hdnG4Ind" />
+
+@*Venue booking*@ 
+<input type="hidden" id="hdnVBPageTy" />
+<input type="hidden" id="hdnVBBlockTy" />
+<input type="hidden" id="hdnVBVenueId" />
+<input type="hidden" id="hdnVBVenueNm" />
+<input type="hidden" id="hdnVBSessId" />
+<input type="hidden" id="hdnVBSessNm" />
+<input type="hidden" id="hdnVBSTm" />
+<input type="hidden" id="hdnVBETm" />
+<input type="hidden" id="hdnVBProperty" />
+<input type="hidden" id="hdnVBResvNo" />
+<input type="hidden" id="hdnVBDate" />
+<input type="hidden" id="hdnResvPage" />
+
+<div ng-app="BQTApp" ng-controller="BQTransController" id="BQReservation">
+   
+        <div class="app-page-title text-left">
+            <div class="page-title-wrapper">
+                <div class="col-xl-12">
+                    <div class="row">
+                        <div class="col-xl-4 col-sm-5 col-md-4 mbl_pb">
+                            <div id="ddlPropertyCont"></div>
+                        </div>
+                        <div class="col-xl-4 col-sm-3 col-md-3 pl-3 mbl_alg mbl_pb mbl_pl mbl_pr text-center">
+                            <i id="LayOutImg" style="width:35px;" class="ViewBag.Icon"></i> <span id="LayoutText"></span>
+                        </div>
+                        <div class="col-xl-4 col-sm-5 col-md-5 text-right mbl_alg">
+                            <div class="text-right mbl_center">
+
+                                <button type="button" class="btnButton" id="btnWL" title="WL" ><i></i>W.L</button>
+                                <button type="button" class="btnButton" id="btnNew" title="New"><i class='fa fa-plus'></i></button>
+                                <button type="button" class="btnButton" id="btnOpen" title="Open"><i class='fa fa-folder-open'></i></button>
+                                <button type="button" class="btnButton" id="btnRef" title="Refresh"><i class='fa fa-sync'></i></button>
+                                <button type="button" class="btnButton" id="btnSave" title="Save"><i class='fa fa-save'></i> </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="row mt-1" id="DivFormbx">
+        <div id="DivForm" style="width:100%"></div>
+    </div>
+        @*<div class="row">
+                <div style="margin-left:0px;width:100% !important">
+                    <div webix-ui="frmBQReservation" style="width:100% !important"></div>
+                </div>
+            </div>*@
+    </div>
+
+
+<script>
+    var CompId=@Html.Raw(Json.Encode(ViewBag.COMP));
+    var UserId=@Html.Raw(Json.Encode(ViewBag.USERID));
+    var Connstr=@Html.Raw(Json.Encode(ViewBag.CONNSTRING));
+    $("#hdnCompId").val(CompId);
+    $("#hdnUserId").val(UserId);
+    $("#hdnConnStr").val(Connstr);
+    $("#hdnResvPage").val('@Session["ResvPage"]') ;
+    $(document).ready(function () {
+        $("#MenuName").val('BQMNUTRNBQRSVCR');
+        $("#MenuLvl").val('BQMNUTRN');
+        $("#MenuLvl1").val('');
+        $("#LayoutText").text("Reservation");
+        fnLoadProperty();
+        fnGuestProfWindowDesign();//added by asb
+        if($("#hdnVBPageTy").val()=="VB")
+        {
+            if($("#hdnVBResvNo").val()=="")
+                fnVenBookConfrim();
+            $('#btnSave').prop('disabled', false);
+        }
+        else
+            $('#btnSave').prop('disabled', true);
+        FormLoad();
+        fnCallNarrPopup();
+        if( $("#hdnResvPage").val()=="1")
+        {
+            $("#btnNew").click();
+            $('#btnSave').show();
+            $('#btnOpen').hide();
+            $('#btnNew').hide();
+            $('#btnWL').hide();
+            $('#btnRef').hide();
+           var  vTy= '@Session["vTy"]';
+            if(vTy=="RES")$$("ddlStatus").setValue("R");
+            else   if(vTy=="TNT")$$("ddlStatus").setValue("2");
+            $$("txtFrmDate").setValue('@Session["vFuncDt"]');
+            $$("txtToDt").setValue('@Session["vFuncDt"]');           
+            var getval = $$("grdVenue").getItem($$("grdVenue").getFirstId());
+            getval.vVenueId = '@Session["vVenueId"]';
+            getval.vSessionId =  '@Session["vSessionId"]';
+            getval.vDate ='@Session["vFuncDt"]';
+            getval.vStm = '@Session["vSTm"]';
+            getval.vEtm ='@Session["vEtm"]';
+            getval.vSessionNm =  '@Session["vSessionNm"]';
+            getval.vVenueNm = '@Session["vVenueNm"]';
+            $$("grdVenue").refresh();
+            $$("grdVenue").select($$("grdVenue").getFirstId());
+         //   $$("Mymenu").attachTo($$("grdVenue"));            
+        }
+        else if($("#hdnResvPage").val()=="2")
+        {
+            $$("frmBQReservation").enable();
+            $$("txtResvNo").setValue('@Session["vResvNo"]');
+            fnDefaultResLoad();
+            fnDefaultVenue();
+            fnShowBQReserve('@Session["vResvNo"]');
+            $("#hdnCurMode").val("O");
+            $$("txtResvSrc").show();
+            $('#btnSave').show();
+            $('#btnOpen').hide();
+            $('#btnNew').hide();
+            $('#btnWL').hide();
+            $('#btnRef').hide();
+            $('#btnSave').prop('disabled', false);
+            $$("Mymenu").attachTo($$("grdVenue"));
+        }
+     
+        debugger;
+        sidebarFn();
+       
+
+      
+    }
+    );
+
+    $("#btnNew").click(function () {
+        fnRemoveClass();
+        $("#btnNew").addClass("ClickBtn");
+        $("#hdnCurMode").val("N");
+        fnDefaultResLoad();
+        fnDefaultVenue();
+        $('#btnSave').prop('disabled', false);
+        $('#btnOpen').prop('disabled', true);
+        $('#btnNew').prop('disabled', true);
+        $('#btnWL').prop('disabled', false);
+        $$("txtResvSrc").hide();       
+        $$("BQTabView").getTabbar().setValue("ReserveFrm"); 
+        fnCreateDefGridRows();
+        $$("frmBQReservation").enable();
+
+        //$$("txtGstName").disable();
+        //$$("txtFirstNm").disable();
+
+        if($("#hdnSaveTag").val()!="1")
+            $("#hdnSaveTag").val("2");
+
+        $$("txtResvDt").enable();
+        $$("Mymenu").attachTo($$("grdVenue"));
+    });
+
+    $("#btnOpen").click(function () {
+        fnRemoveClass();
+        $("#btnOpen").addClass("ClickBtn");
+        $("#hdnCurMode").val("O");
+        $$("txtResvSrc").show();
+        $('#btnSave').prop('disabled', false);
+        $('#btnNew').prop('disabled', true);
+        $('#btnOpen').prop('disabled', true);
+        $('#btnWL').prop('disabled', true);
+        $$("BQTabView").getTabbar().setValue("ReserveFrm"); 
+        $$("frmBQReservation").enable();
+        $$("txtResvDt").disable();
+        //$$("txtGstName").disable();
+        //$$("txtFirstNm").disable();
+        $$("Mymenu").attachTo($$("grdVenue"));
+    });
+
+    $("#btnSave").click(function () {
+        $("#btnSave").addClass("ClickBtn");
+        prcSaveBQTrans();
+    });
+    $("#btnWL").click(function () {
+        fnCallReservationPop('WL');
+        $$("frmBQReservation").enable();
+        $$("Mymenu").attachTo($$("grdVenue"));
+    });
+
+    $("#btnRef").click(function () {
+        $$("txtResvSrc").hide();  
+        
+        if($$("grdVenue"))
+            $$("grdVenue").refreshColumns();
+
+        if($$("grdDepart"))
+            $$("grdDepart").refreshColumns();
+
+        fnRemoveClass();
+        fnClearData();
+        $$("txtResvNo").setValue("");
+        
+    });
+    
+
+    function fnChangeProperty() {
+      
+    }
+    $(document).on('shown.lte.pushmenu', function () {
+        var timeoutID;
+        function delayedStart() {
+            timeoutID = window.setTimeout(resizeAction, 350);
+        }
+        function resizeAction() {
+            debugger;
+            fnfrmResize()
+            //sidebarFn();
+            //  alert("Sidebar is collapsed or expanded!")          
+        }
+        delayedStart();
+    }).on('collapsed.lte.pushmenu', function () {
+        var timeoutID;
+        function delayedStart() {
+            timeoutID = window.setTimeout(resizeAction, 350);
+        }
+        function resizeAction() {
+            debugger;
+            fnfrmResize()
+            window.clearTimeout(timeoutID);          
+        }
+
+        function sidebarFn() { fnfrmResize();}
+        delayedStart();
+    });
+</script>
+<style>
+    .context.webix_menu .webix_list_item, .webix_menu-x .webix_list_item {
+        background: #007bff !important;
+        color: white !important;
+    }
+    .OptUL
+    { text-decoration:underline;
+    }
+    .LblColor .webix_el_box {
+        color: #ec1414 !important;
+        font-family: Arial !important;
+        font-size: 12px !important;
+        font-style: italic;
+    }
+</style>
